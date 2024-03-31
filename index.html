@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Player</title>
+    <style>
+        /* Add responsive styling here */
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+        #video-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        video {
+            width: 100%;
+        }
+        .history-item {
+            display: flex;
+            align-items: center;
+            margin: 10px 0;
+        }
+        .thumbnail {
+            width: 80px;
+            height: 60px;
+            margin-right: 10px;
+        }
+        .url-preview {
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+    </style>
+</head>
+<body>
+    <div id="video-container">
+        <h1>Video Player</h1>
+        <video controls id="video-player">
+            <!-- Video source will be dynamically set -->
+        </video>
+        <input type="text" id="video-url" placeholder="Paste video URL">
+        <button onclick="loadVideo()">Load Video</button>
+    </div>
+    <div id="history">
+        <!-- Viewing history will be dynamically populated here -->
+    </div>
+    <script>
+        const historyContainer = document.getElementById('history');
+
+        function loadVideo() {
+            const videoUrl = document.getElementById('video-url').value;
+            const videoPlayer = document.getElementById('video-player');
+            videoPlayer.src = videoUrl;
+
+            // Add to viewing history
+            addToHistory(videoUrl);
+        }
+
+        function addToHistory(url) {
+            const historyItem = document.createElement('div');
+            historyItem.classList.add('history-item');
+
+            // Create thumbnail (you can replace this with actual thumbnails)
+            const thumbnail = document.createElement('img');
+            thumbnail.src = 'placeholder_thumbnail.jpg'; // Replace with actual thumbnail URL
+            thumbnail.classList.add('thumbnail');
+            historyItem.appendChild(thumbnail);
+
+            // Create URL preview
+            const urlPreview = document.createElement('span');
+            urlPreview.textContent = url.slice(0, 20) + '...'; // Show first 20 characters
+            urlPreview.classList.add('url-preview');
+            historyItem.appendChild(urlPreview);
+
+            // Click event to reveal full URL
+            historyItem.addEventListener('click', () => {
+                urlPreview.textContent = url;
+            });
+
+            historyContainer.appendChild(historyItem);
+        }
+    </script>
+</body>
+</html>
+￼Enter
